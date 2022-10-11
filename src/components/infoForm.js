@@ -1,15 +1,24 @@
 import React, { useState } from "react";
+import database from './config';
+import { ref, set } from "firebase/database";
 
 const InfoForm = () => {
     const[{codigo,operacao,turno,cronoanalista,revisao,centro_trabalho,data,observacao,concessao,tempo_normal_total,tempo_basico_total}, setState] = useState({codigo:'',operacao:'',turno:'',cronoanalista:'',revisao:'',centro_trabalho:'',data:'',observacao:'',concessao:'',tempo_normal_total:'',tempo_basico_total:''})
     
     const handleSubmit = (e) => {
-        e.preventDefault();
+      e.preventDefault();
+      set(ref(database, 'tempos/'+ codigo +'/'+ operacao +'/' + revisao), {
+        cronoanalista : cronoanalista,
+        data: data,
+        observacao:observacao,
+        
+      });
+      alert('Information submitted')
     }
     const handleChange = ({target:{name,value}})=>{
-        setState(prevState =>({...prevState,[name]:value}));
+      setState(prevState =>({...prevState,[name]:value}));
     }
- 
+
 return (
   <div className="form-holder">
     <h1 className="title">INFORMAÇÕES GERAIS</h1>
