@@ -3,7 +3,7 @@ import database from './config';
 import { ref, set } from "firebase/database";
 
 const InfoForm = () => {
-    const[{codigo,operacao,turno,cronoanalista,revisao,centro_trabalho,data,observacao,concessao,tempo_normal_total,tempo_basico_total}, setState] = useState({codigo:'',operacao:'',turno:'',cronoanalista:'',revisao:'',centro_trabalho:'',data:'',observacao:'',concessao:'',tempo_normal_total:'',tempo_basico_total:''})
+    const[{codigo,operacao,turno,cronoanalista,revisao,centro_trabalho,data,observacao,concessao,tempo_normal_total,tempo_basico_total}, setState] = useState({codigo:'',operacao:'01 - Preparação de Máteria-Prima',turno:'',cronoanalista:'',revisao:'',centro_trabalho:'',data:'',observacao:'',concessao:'',tempo_normal_total:'',tempo_basico_total:''})
     
     const handleSubmit = (e) => {
       e.preventDefault();
@@ -40,11 +40,11 @@ return (
         <label>
         Operação:
           <select value={operacao} className="input-form"name="operacao" onChange={handleChange}>
-          <option value="01">01 - Preparação de Máteria-Prima</option>
-          <option value="02">02 - Mistura</option>
-          <option value="03">03 - Envase</option>
-          <option value="04">04 - Embalagem e Acondicionamento</option>
-          <option value="05">05 - Setup e Limpeza</option>
+          <option value="01 - Preparação de Máteria-Prima">01 - Preparação de Máteria-Prima</option>
+          <option value="02 - Mistura">02 - Mistura</option>
+          <option value="03 - Envase">03 - Envase</option>
+          <option value="04 - Embalagem e Acondicionamento">04 - Embalagem e Acondicionamento</option>
+          <option value="05 - Setup e Limpeza">05 - Setup e Limpeza</option>
           </select>
         </label>
       </div>
