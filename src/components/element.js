@@ -10,7 +10,7 @@ const Element = () => {
       set(ref(database, 'tempos/'+ 30133), {
         id : id,
         element: element,
-        
+        //preciso passar o id como props
       });
       alert('Information submitted')
     }
@@ -19,12 +19,11 @@ const Element = () => {
     }
 
 return (
-  <div className="form-holder">
-    <h1 className="title">INFORMAÇÕES GERAIS</h1>
+
     <form onSubmit={handleSubmit}>
       <div className="input-holder">
         <label> 
-          Código: 
+          Descrição da Tarefa {id}: 
           <input
           type="text"
           placeholder="Elemento"
@@ -37,7 +36,6 @@ return (
       </div>
       <input className="submit-button"type="submit" value="Submit" />
     </form>
-  </div>
   );
 }
 

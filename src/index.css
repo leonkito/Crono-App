@@ -62,6 +62,8 @@ label{
   display:flex;
   padding: 30px;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
   background-color:rgb(220, 220, 220);
 }
 .input-form{

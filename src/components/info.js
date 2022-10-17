@@ -12,8 +12,7 @@ const GetInfo = () =>{
     }
 
     return(
-        <div onClick={handleClick} style={{width: 'auto', margin: 'auto'}}>click here: </div>
-        
+        <div onClick={handleClick} style={{width: 'auto', margin: 'auto'}}>Obter dados database: </div>
     )
 }
 
