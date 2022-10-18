@@ -1,17 +1,13 @@
 import React from "react";
-import Header from './components/header'
-import InfoForm from './components/infoForm'
+import MainForm from './components/MainForm'
 import Cadastro from './components/cadastro'
 const App = () => {
 
   return (
-    <>
-      <Header />
-      <div className="main">
-      <InfoForm />
-      <Cadastro />
-      </div>
-    </>
+    <div className="main">
+    <MainForm />
+    <Cadastro />
+    </div>
   );
 }
 

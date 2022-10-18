@@ -1,30 +1,46 @@
 import React, { useState } from "react";
-import database from './config';
+import databaseConfig from './databaseConfig';
 import { ref, set } from "firebase/database";
 
-const InfoForm = () => {
-    const[{codigo,operacao,turno,cronoanalista,revisao,centro_trabalho,data,observacao,concessao,tempo_normal_total,tempo_basico_total}, setState] = useState({codigo:'',operacao:'01 - Preparação de Máteria-Prima',turno:'',cronoanalista:'',revisao:'',centro_trabalho:'',data:'',observacao:'',concessao:'',tempo_normal_total:'',tempo_basico_total:''})
-    const[show,setShow] = useState(true);
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      // set(ref(database, 'tempos/'+ codigo +'/'+ operacao +'/' + revisao), {
-      //   cronoanalista : cronoanalista,
-      //   data: data,
-      //   observacao:observacao,
-        
-      // });
-      setShow(show=== true ? false : true)
-      alert('Information submitted')
-    }
-    const handleChange = ({target:{name,value}})=>{
-      setState(prevState =>({...prevState,[name]:value}));
-    }
+const MainForm = () => {
+  const[{codigo, operacao, revisao, turno, cronoanalista, centroTrabalho, data, observacao}, setState] = useState({
+    codigo:'',
+    operacao:'01 - Preparação de Máteria-Prima',
+    revisao:'',
+    turno:'',
+    cronoanalista:'',
+    centroTrabalho:'',
+    data:'',
+    observacao:'',
+  })
+  // const[{concessao, tempoNormal, tempoBasico}] = useState({
+  //   concessao:'',
+  //   tempoNormal:'',
+  //   tempoBasico:''
+  // })
+  const[show,setShow] = useState(true);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const timeRef = ref(databaseConfig, `tempos/${codigo}/${operacao}/${revisao}`)
+    set(timeRef,{
+      cronoanalista : cronoanalista,
+      data: data,
+      observacao:observacao
+    })
+    setShow(show === true ? false : true)
+    // TODO add on edit mode to change in database only what has been changed in the forms, cause set changes all the reference if nothing else is especified 
+  }
+
+  const handleChange = ({target:{name, value}})=>{
+    setState(prevState =>({...prevState, [name]:value}));
+  }
 
   return (
     
     <div className="form-holder">
       <h1 className="title">INFORMAÇÕES GERAIS</h1>
-      {show === true ? (
+      {show ? (
       <form onSubmit={handleSubmit}>
         <div className="input-holder">
           <label> 
@@ -42,23 +58,23 @@ const InfoForm = () => {
         <div className="input-holder">
           <label>
           Operação:
-            <select value={operacao} className="input-form"name="operacao" onChange={handleChange}>
-            <option value="01 - Preparação de Máteria-Prima">01 - Preparação de Máteria-Prima</option>
-            <option value="02 - Mistura">02 - Mistura</option>
-            <option value="03 - Envase">03 - Envase</option>
-            <option value="04 - Embalagem e Acondicionamento">04 - Embalagem e Acondicionamento</option>
-            <option value="05 - Setup e Limpeza">05 - Setup e Limpeza</option>
+            <select value={operacao} className="input-form" name="operacao" onChange={handleChange}>
+              <option value="01 - Preparação de Máteria-Prima">01 - Preparação de Máteria-Prima</option>
+              <option value="02 - Mistura">02 - Mistura</option>
+              <option value="03 - Envase">03 - Envase</option>
+              <option value="04 - Embalagem e Acondicionamento">04 - Embalagem e Acondicionamento</option>
+              <option value="05 - Setup e Limpeza">05 - Setup e Limpeza</option>
             </select>
           </label>
         </div>
         <div className="input-holder">
           <label>
           Turno:
-          <select value={turno} className="input-form"name="turno" onChange={handleChange}>
-          <option value="01">1° Turno</option>
-          <option value="02">2° Turno</option>
-          <option value="03">3° Turno</option>
-          <option value="04">Normal</option>
+          <select value={turno} className="input-form" name="turno" onChange={handleChange}>
+            <option value="01">1° Turno</option>
+            <option value="02">2° Turno</option>
+            <option value="03">3° Turno</option>
+            <option value="04">Normal</option>
           </select>
           </label>
         </div>
@@ -81,9 +97,9 @@ const InfoForm = () => {
             <input
             type="text"
             placeholder="Centro de Trabalho"
-            value={centro_trabalho}
+            value={centroTrabalho}
             className="input-form"
-            name="centro_trabalho"
+            name="centroTrabalho"
             onChange={handleChange}
           />
           </label>
@@ -136,4 +152,4 @@ const InfoForm = () => {
   )
 }
 
-export default InfoForm
+export default MainForm

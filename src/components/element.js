@@ -1,29 +1,28 @@
-import React, { useState } from "react";
-import database from './config';
-import { ref, set } from "firebase/database";
+import React, { useState, useEffect, setState} from "react";
 
-const Element = () => {
-    const[{id,element}, setState] = useState({id:1,element:''})
-    
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      set(ref(database, 'tempos/'+ 30133), {
-        id : id,
-        element: element,
-        //preciso passar o id como props
-      });
-      alert('Information submitted')
-    }
-    const handleChange = ({target:{name,value}})=>{
-      setState(prevState =>({...prevState,[name]:value}));
-    }
 
-return (
+const Element = (props) => {
+  const[{element}, setState] = useState({element:''})
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  }
+
+  // React.useEffect(() => {
+  //   if (props.onChange) {
+  //     props.onChange(element)
+  //   }
+  // })
+  const handleChange = ({target:{name,value}})=>{
+    setState(prevState =>({...prevState,[name]:value}));
+    props.onChange();
+  }
+
+  return (
     <form onSubmit={handleSubmit}>
       <div className="input-holder">
         <label> 
-          Descrição da Tarefa {id}: 
+          Descrição da Tarefa: 
           <input
           type="text"
           placeholder="Elemento"
@@ -34,7 +33,6 @@ return (
           />
         </label>
       </div>
-      <input className="submit-button"type="submit" value="Submit" />
     </form>
   );
 }
