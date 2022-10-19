@@ -12,7 +12,7 @@ const Cadastro = () => {
   return (
     <div className="form-holder">
     <h1 className="title">Elementos</h1>
-      {[...Array(times)].map((e, i) => <Element onChange={handleChange}/>)}
+      {[...Array(times)].map((e, i) => <Element key={i} onChange={handleChange}/>)}
       <button className="submit-button" onClick={handleClick}>Adicionar Elemento</button>
     </div>
   );
