@@ -1,6 +1,5 @@
 import React, { useState, useEffect} from "react";
 
-
 const Element = () => {
   const[{element}, setState] = useState({element:''});
   const[time,setTime] = useState([""]);
@@ -24,7 +23,7 @@ const Element = () => {
         return accumulator + Number(value);
       }, 0);
       settempoControle(sum)
-    }, 2000);
+    }, 1500);
     return function() {
       clearInterval(id);
     }
@@ -52,10 +51,10 @@ const Element = () => {
       </div>
       <label>Ciclos:
       <div className="input-time-holder">
-        {[...Array(ciclos)].map((e, i) =><input name={i} key={i} type="number" value={time[i]} onChange={handleTime} className="input-time-form"></input>)}
+        {[...Array(ciclos)].map((e, i) =><input placeholder={`t${i+1}`}name={i} key={i} type="number" value={time[i]} onChange={handleTime} className="input-time-form"></input>)}
       </div>
       <div>{tempoControle}</div>
-      <button className="double-button submit-button" onClick={handleCiclos}>Adicionar mais ciclos</button>
+      <button className="double-button submit-button" onClick={handleCiclos}>Adicionar Ciclos</button>
       </label>      
     </form>
   );
