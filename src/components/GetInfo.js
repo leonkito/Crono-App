@@ -1,5 +1,5 @@
 import databaseConfig from './databaseConfig';
-import React, {useState, setState} from "react";
+import React, {useState} from "react";
 import {ref,  onValue} from "firebase/database";
 const GetInfo = () =>{
   // const [data,setData] = useState('')

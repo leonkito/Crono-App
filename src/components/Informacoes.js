@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import databaseConfig from './databaseConfig';
-import { ref, set } from "firebase/database";
+// import databaseConfig from './databaseConfig';
+// import { ref, set } from "firebase/database";
 
-const MainForm = () => {
+const Informacoes = () => {
   const[{codigo, operacao, revisao, turno, cronoanalista, centroTrabalho, data, observacao}, setState] = useState({
     codigo:'',
     operacao:'01 - Preparação de Máteria-Prima',
@@ -22,12 +22,12 @@ const MainForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const timeRef = ref(databaseConfig, `tempos/${codigo}/${operacao}/${revisao}`)
-    set(timeRef,{
-      cronoanalista : cronoanalista,
-      data: data,
-      observacao:observacao
-    })
+    // const timeRef = ref(databaseConfig, `tempos/${codigo}/${operacao}/${revisao}`)
+    // set(timeRef,{
+    //   cronoanalista : cronoanalista,
+    //   data: data,
+    //   observacao:observacao
+    // })
     setShow(show === true ? false : true)
     // TODO add on edit mode to change in database only what has been changed in the forms, cause set changes all the reference if nothing else is especified 
   }
@@ -37,7 +37,6 @@ const MainForm = () => {
   }
 
   return (
-    
     <div className="form-holder">
       <h1 className="title">INFORMAÇÕES GERAIS</h1>
       {show ? (
@@ -152,4 +151,4 @@ const MainForm = () => {
   )
 }
 
-export default MainForm
+export default Informacoes

@@ -1,8 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import App from "./App";
+import Cadastro from "./Cadastro";
 import Visualizar from './Visualizar'
 import Header from './components/Header'
-// import Profile from "./Profile";
 
 const RouteSwitch = () => {
   return (
@@ -10,7 +9,7 @@ const RouteSwitch = () => {
     <div>
       <Header />
       <Routes>
-        <Route path="/" element={<App />} />
+        <Route path="/" element={<Cadastro/>} />
         <Route path="/visualizar" element={<Visualizar />} />
         {/* <Route path="/profile" element={<Profile />} /> */}
       </Routes>

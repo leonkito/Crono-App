@@ -1,12 +1,20 @@
 import React, { useState, useEffect} from "react";
 
-const Element = () => {
-  const[{element, ritmo,frequencia,fadiga}, setState] = useState({element:'',ritmo:100,frequencia:1,fadiga:14.9});
+const Elemento = () => {
+  const[{element, ritmo,frequencia,fadiga}, setState] = useState({
+    element:'',
+    ritmo:100,
+    frequencia:1,
+    fadiga:14.9
+  });
+  const[show,setShow] = useState(true);
   const[time,setTime] = useState([""]);
   const[ciclos,setCiclos] = useState(5);
-  const[tempoControle,setTempoControle] = useState("");
-  const[tempoNormal,setTempoNormal] = useState("");
-  const[tempoBase,setTempoBase] = useState("");
+  const[tempoControle,setTempoControle] = useState(0);
+  const[tempoNormal,setTempoNormal] = useState(0);
+  const[tempoBase,setTempoBase] = useState(0);
+
+  
   const handleSubmit = (e) => {
     e.preventDefault();
   }
@@ -24,25 +32,23 @@ const Element = () => {
       const sum = Object.values(time).reduce((accumulator, value) => {
         return accumulator + Number(value);
       }, 0);
-      const media=sum/(Object.values(time).length);
-      setTempoControle(media);
-      const tn = media/(ritmo/100)
-      const tb = (tn/frequencia)*(1+(fadiga/100))
+      const tm = Math.round((sum/(Object.values(time).length)) * 100) / 100;
+      const tn = Math.round((tm/(ritmo/100)) * 100) / 100;
+      const tb = Math.round(((tn/frequencia)*(1+(fadiga/100))) * 100) / 100;
+      setTempoControle(tm);
       setTempoNormal(tn);
       setTempoBase(tb)
-    }, 1500);
+    }, 300);
     return function() {
       clearInterval(id);
     }
   }, [time, fadiga, ritmo, frequencia]);
   // useEffect roda apenas quando o objeto ou variavel muda, conforme [time]
 
-  const handleCiclos = () =>{
-    setCiclos(ciclos+5)
-  }
-
   return (
     <form onSubmit={handleSubmit}>
+      {show ? (
+      <>
       <div className="input-holder">
         <label> 
           Descrição da Tarefa: 
@@ -60,7 +66,7 @@ const Element = () => {
       <div className="input-time-holder">
         {[...Array(ciclos)].map((e, i) =><input placeholder={`t${i+1}`}name={i} key={i} type="number" value={time[i]} onChange={handleTime} className="input-time-form"></input>)}
       </div>
-      <button className="submit-button" onClick={handleCiclos}>+ Tempos</button>
+      <button className="submit-button" onClick={() =>{setCiclos(ciclos+5)}}>+ Tempos</button>
       </label>
       <div className="input-percentage-holder">
         <label> 
@@ -126,9 +132,12 @@ const Element = () => {
           />
         </label>
       </div>
-  
-    </form>
+      </>
+      ) : (
+      <button className="submit-button" onClick={()=>{setShow(show === true ? false : true)}}>Novo Elemento</button>
+      )}
+      </form>
   );
 }
 
-export default Element
+export default Elemento
