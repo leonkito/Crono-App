@@ -1,18 +1,19 @@
 import React, { useState, useEffect} from "react";
 
 const Elemento = () => {
-  const[{element, ritmo,frequencia,fadiga}, setState] = useState({
+  const[state, setState] = useState({
     element:'',
     ritmo:100,
     frequencia:1,
-    fadiga:14.9
+    fadiga:14.9,
+    tempoControle:0,
+    tempoNormal:0,
+    tempoBase:0,
+    // time:[""]
   });
   const[show,setShow] = useState(true);
   const[time,setTime] = useState([""]);
   const[ciclos,setCiclos] = useState(5);
-  const[tempoControle,setTempoControle] = useState(0);
-  const[tempoNormal,setTempoNormal] = useState(0);
-  const[tempoBase,setTempoBase] = useState(0);
 
   
   const handleSubmit = (e) => {
@@ -32,17 +33,15 @@ const Elemento = () => {
       const sum = Object.values(time).reduce((accumulator, value) => {
         return accumulator + Number(value);
       }, 0);
-      const tm = Math.round((sum/(Object.values(time).length)) * 100) / 100;
-      const tn = Math.round((tm/(ritmo/100)) * 100) / 100;
-      const tb = Math.round(((tn/frequencia)*(1+(fadiga/100))) * 100) / 100;
-      setTempoControle(tm);
-      setTempoNormal(tn);
-      setTempoBase(tb)
+      const tm = Number(Math.round((sum/(Object.values(time).length)) * 100) / 100);
+      const tn = Number(Math.round((tm/(state.ritmo/100)) * 100) / 100);
+      const tb = Math.round(((tn/state.frequencia)*(1+(state.fadiga/100))) * 100) / 100;
+      setState(prevState =>({...prevState,tempoControle:Number(tm), tempoNormal:Number(tn), tempoBase:Number(tb)}))
     }, 300);
     return function() {
       clearInterval(id);
     }
-  }, [time, fadiga, ritmo, frequencia]);
+  }, [time, state.fadiga, state.ritmo, state.frequencia]);
   // useEffect roda apenas quando o objeto ou variavel muda, conforme [time]
 
   return (
@@ -55,7 +54,7 @@ const Elemento = () => {
           <input
           type="text"
           placeholder="Elemento"
-          value={element}
+          value={state.element}
           className="input-form"
           name="element"
           onChange={handleChange}
@@ -74,7 +73,7 @@ const Elemento = () => {
           <input
           type="number"
           placeholder="Ritmo"
-          value={ritmo}
+          value={state.ritmo}
           className="input-percentage-form"
           name="ritmo"
           onChange={handleChange}
@@ -85,7 +84,7 @@ const Elemento = () => {
           <input
           type="number"
           placeholder="Frequência"
-          value={frequencia}
+          value={state.frequencia}
           className="input-percentage-form"
           name="frequencia"
           onChange={handleChange}
@@ -96,7 +95,7 @@ const Elemento = () => {
           <input
           type="number"
           placeholder="Fadiga"
-          value={fadiga}
+          value={state.fadiga}
           className="input-percentage-form"
           name="fadiga"
           onChange={handleChange}
@@ -109,7 +108,7 @@ const Elemento = () => {
           <input
           type="number"
           readOnly
-          value={tempoControle}
+          value={state.tempoControle}
           className="input-percentage-form"
           />
         </label>
@@ -118,7 +117,7 @@ const Elemento = () => {
           <input
           type="number"
           readOnly
-          value={tempoNormal}
+          value={state.tempoNormal}
           className="input-percentage-form"
           />
         </label>
@@ -127,7 +126,7 @@ const Elemento = () => {
           <input
           type="number"
           readOnly
-          value={tempoBase}
+          value={state.tempoBase}
           className="input-percentage-form"
           />
         </label>
