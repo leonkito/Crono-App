@@ -38,10 +38,10 @@ const Informacoes = () => {
 
   return (
     <div className="form-holder">
-      <h1 className="title">INFORMAÇÕES GERAIS</h1>
+      <p className="title">INFORMAÇÕES GERAIS</p>
       {show ? (
       <form onSubmit={handleSubmit}>
-        <div className="input-holder">
+        
           <label> 
             Código: 
             <input
@@ -53,8 +53,8 @@ const Informacoes = () => {
             onChange={handleChange}
             />
           </label>
-        </div>
-        <div className="input-holder">
+        
+        
           <label>
           Operação:
             <select value={operacao} className="input-form" name="operacao" onChange={handleChange}>
@@ -65,8 +65,8 @@ const Informacoes = () => {
               <option value="05 - Setup e Limpeza">05 - Setup e Limpeza</option>
             </select>
           </label>
-        </div>
-        <div className="input-holder">
+        
+        
           <label>
           Turno:
           <select value={turno} className="input-form" name="turno" onChange={handleChange}>
@@ -76,8 +76,8 @@ const Informacoes = () => {
             <option value="04">Normal</option>
           </select>
           </label>
-        </div>
-        <div className="input-holder">
+        
+        
           <label> 
           Cronoanalista: 
           <input
@@ -89,8 +89,8 @@ const Informacoes = () => {
           onChange={handleChange}
           />
           </label>
-        </div>
-        <div className="input-holder">
+        
+        
           <label> 
           Centro de Trabalho: 
             <input
@@ -102,8 +102,8 @@ const Informacoes = () => {
             onChange={handleChange}
           />
           </label>
-        </div>
-        <div className="input-holder">
+        
+        
           <label> 
           Data:
             <input
@@ -115,8 +115,8 @@ const Informacoes = () => {
             onChange={handleChange}
           />
           </label>
-        </div>
-        <div className="input-holder">
+        
+        
           <label> 
           Revisão:
             <input
@@ -128,8 +128,8 @@ const Informacoes = () => {
             onChange={handleChange}
           />
           </label>
-        </div>
-        <div className="input-holder">
+        
+        
           <label> 
           Observação:
             <input
@@ -141,7 +141,7 @@ const Informacoes = () => {
             onChange={handleChange}
           />
           </label>
-        </div>
+        
         <input className="submit-button" type="submit" value="Salvar" />
       </form>
       ) : (

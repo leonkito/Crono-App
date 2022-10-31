@@ -15,7 +15,6 @@ const Elemento = () => {
   const[time,setTime] = useState([""]);
   const[ciclos,setCiclos] = useState(5);
 
-  
   const handleSubmit = (e) => {
     e.preventDefault();
   }
@@ -67,7 +66,7 @@ const Elemento = () => {
       </div>
       <button className="submit-button" onClick={() =>{setCiclos(ciclos+5)}}>+ Tempos</button>
       </label>
-      <div className="input-percentage-holder">
+      <div className="input-times-holder">
         <label> 
           Ritmo(em %): 
           <input
@@ -101,8 +100,6 @@ const Elemento = () => {
           onChange={handleChange}
           />
         </label>
-      </div>
-      <div className="input-percentage-holder">
         <label> 
           Tempo Médio: 
           <input
