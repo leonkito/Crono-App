@@ -1,6 +1,6 @@
 import React,{ useState} from "react";
 import Elemento from './Elemento';
-import Divider from './Divider';
+import Divider from '../Functional/Divider';
 
 const Tempos = () => {
   // const[show,setShow] = useState([true])
@@ -36,7 +36,7 @@ const Tempos = () => {
       // )
       )}
       {/* <button className="submit-button" onClick={showAll}>show All</button> */}
-      <button className="submit-button" onClick={handleClick}>Novo Elemento</button>
+      <button className="submit-button medium-btn" onClick={handleClick}>Adicionar Elemento</button>
     </div>
   );
 }

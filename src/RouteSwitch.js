@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Cadastro from "./Cadastro";
 import Visualizar from './Visualizar'
-import Header from './components/Header'
+import Header from './components/Functional/Header'
 
 const RouteSwitch = () => {
   return (
@@ -11,7 +11,6 @@ const RouteSwitch = () => {
       <Routes>
         <Route path="/" element={<Cadastro/>} />
         <Route path="/visualizar" element={<Visualizar />} />
-        {/* <Route path="/profile" element={<Profile />} /> */}
       </Routes>
     </div>
     </BrowserRouter>

@@ -1,5 +1,5 @@
 import React from "react";
-import GetInfo from './components/GetInfo'
+import GetInfo from './components/Read/GetInfo'
 
 const Visualizar = () => {
   return (

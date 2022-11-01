@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import databaseConfig from './databaseConfig';
+// import databaseConfig from './Functiona/databaseConfig';
 // import { ref, set } from "firebase/database";
 
 const Informacoes = () => {
@@ -39,9 +39,8 @@ const Informacoes = () => {
   return (
     <div className="form-holder">
       <p className="title">INFORMAÇÕES GERAIS</p>
-      {show ? (
+      {show && (
       <form onSubmit={handleSubmit}>
-        
           <label> 
             Código: 
             <input
@@ -53,8 +52,6 @@ const Informacoes = () => {
             onChange={handleChange}
             />
           </label>
-        
-        
           <label>
           Operação:
             <select value={operacao} className="input-form" name="operacao" onChange={handleChange}>
@@ -65,8 +62,6 @@ const Informacoes = () => {
               <option value="05 - Setup e Limpeza">05 - Setup e Limpeza</option>
             </select>
           </label>
-        
-        
           <label>
           Turno:
           <select value={turno} className="input-form" name="turno" onChange={handleChange}>
@@ -76,8 +71,6 @@ const Informacoes = () => {
             <option value="04">Normal</option>
           </select>
           </label>
-        
-        
           <label> 
           Cronoanalista: 
           <input
@@ -89,8 +82,6 @@ const Informacoes = () => {
           onChange={handleChange}
           />
           </label>
-        
-        
           <label> 
           Centro de Trabalho: 
             <input
@@ -102,8 +93,6 @@ const Informacoes = () => {
             onChange={handleChange}
           />
           </label>
-        
-        
           <label> 
           Data:
             <input
@@ -115,12 +104,10 @@ const Informacoes = () => {
             onChange={handleChange}
           />
           </label>
-        
-        
           <label> 
           Revisão:
             <input
-            type="text"
+            type="number"
             placeholder="N° da revisão"
             value={revisao}
             className="input-form"
@@ -128,8 +115,6 @@ const Informacoes = () => {
             onChange={handleChange}
           />
           </label>
-        
-        
           <label> 
           Observação:
             <input
@@ -141,12 +126,9 @@ const Informacoes = () => {
             onChange={handleChange}
           />
           </label>
-        
-        <input className="submit-button" type="submit" value="Salvar" />
       </form>
-      ) : (
-            <button className="submit-button" onClick={() =>setShow(show=== true ? false : true)}>Editar</button>
-        )}
+      )}
+        <button className="submit-button small-btn" onClick={() =>setShow(show=== true ? false : true)}>{show ? 'Salvar' : 'Editar'}</button>
     </div>
   )
 }

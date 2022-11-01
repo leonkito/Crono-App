@@ -9,11 +9,10 @@ const Elemento = () => {
     tempoControle:0,
     tempoNormal:0,
     tempoBase:0,
-    // time:[""]
   });
-  const[show,setShow] = useState(true);
+  // const[show,setShow] = useState(true);
   const[time,setTime] = useState([""]);
-  const[ciclos,setCiclos] = useState(5);
+  const[ciclos,setCiclos] = useState(10);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -45,8 +44,6 @@ const Elemento = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      {show ? (
-      <>
       <div className="input-holder">
         <label> 
           Descrição da Tarefa: 
@@ -62,10 +59,10 @@ const Elemento = () => {
       </div>
       <label>Ciclos:
       <div className="input-time-holder">
-        {[...Array(ciclos)].map((e, i) =><input placeholder={`t${i+1}`}name={i} key={i} type="number" value={time[i]} onChange={handleTime} className="input-time-form"></input>)}
+        {[...Array(ciclos)].map((e, i) =><input placeholder={`t${i+1}`} name={i} key={i} type="number" value={time[i]} onChange={handleTime} className="input-time-form"></input>)}
       </div>
-      <button className="submit-button" onClick={() =>{setCiclos(ciclos+5)}}>+ Tempos</button>
-      </label>
+      <button className="submit-button small-btn" onClick={() =>{setCiclos(ciclos+10)}}>+ Tempos</button>
+      </label>      
       <div className="input-times-holder">
         <label> 
           Ritmo(em %): 
@@ -92,12 +89,12 @@ const Elemento = () => {
         <label> 
           Fadiga(em %): 
           <input
-          type="number"
-          placeholder="Fadiga"
-          value={state.fadiga}
-          className="input-percentage-form"
-          name="fadiga"
-          onChange={handleChange}
+            type="number"
+            placeholder="Fadiga"
+            value={state.fadiga}
+            className="input-percentage-form"
+            name="fadiga"
+            onChange={handleChange}
           />
         </label>
         <label> 
@@ -105,6 +102,7 @@ const Elemento = () => {
           <input
           type="number"
           readOnly
+          disabled="disabled"
           value={state.tempoControle}
           className="input-percentage-form"
           />
@@ -114,6 +112,7 @@ const Elemento = () => {
           <input
           type="number"
           readOnly
+          disabled="disabled"
           value={state.tempoNormal}
           className="input-percentage-form"
           />
@@ -123,15 +122,12 @@ const Elemento = () => {
           <input
           type="number"
           readOnly
+          disabled="disabled"
           value={state.tempoBase}
           className="input-percentage-form"
           />
         </label>
       </div>
-      </>
-      ) : (
-      <button className="submit-button" onClick={()=>{setShow(show === true ? false : true)}}>Novo Elemento</button>
-      )}
       </form>
   );
 }
