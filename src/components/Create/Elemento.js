@@ -32,7 +32,7 @@ const Elemento = () => {
         return accumulator + Number(value);
       }, 0);
       const tm = Number(Math.round((sum/(Object.values(time).length)) * 100) / 100);
-      const tn = Number(Math.round((tm/(state.ritmo/100)) * 100) / 100);
+      const tn = Number(Math.round((tm*(state.ritmo/100)) * 100) / 100);
       const tb = Math.round(((tn/state.frequencia)*(1+(state.fadiga/100))) * 100) / 100;
       setState(prevState =>({...prevState,tempoControle:Number(tm), tempoNormal:Number(tn), tempoBase:Number(tb)}))
     }, 300);
