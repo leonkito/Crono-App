@@ -9,14 +9,11 @@ const Elemento = () => {
     tempoControle:0,
     tempoNormal:0,
     tempoBase:0,
+    tempoCiclos:[''],
   });
   // const[show,setShow] = useState(true);
   const[time,setTime] = useState([""]);
   const[ciclos,setCiclos] = useState(10);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  }
 
   const handleChange = ({target:{name,value}})=>{
     setState(prevState =>({...prevState,[name]:value}));
@@ -34,7 +31,7 @@ const Elemento = () => {
       const tm = Number(Math.round((sum/(Object.values(time).length)) * 100) / 100);
       const tn = Number(Math.round((tm*(state.ritmo/100)) * 100) / 100);
       const tb = Math.round(((tn/state.frequencia)*(1+(state.fadiga/100))) * 100) / 100;
-      setState(prevState =>({...prevState,tempoControle:Number(tm), tempoNormal:Number(tn), tempoBase:Number(tb)}))
+      setState(prevState =>({...prevState,tempoControle:Number(tm), tempoNormal:Number(tn), tempoBase:Number(tb),tempoCiclos:time}))
     }, 300);
     return function() {
       clearInterval(id);
@@ -43,7 +40,7 @@ const Elemento = () => {
   // useEffect roda apenas quando o objeto ou variavel muda, conforme [time]
 
   return (
-    <form onSubmit={handleSubmit}>
+    <>
       <div className="input-holder">
         <label> 
           Descrição da Tarefa: 
@@ -59,7 +56,7 @@ const Elemento = () => {
       </div>
       <label>Ciclos:
       <div className="input-time-holder">
-        {[...Array(ciclos)].map((e, i) =><input placeholder={`t${i+1}`} name={i} key={i} type="number" value={time[i]} onChange={handleTime} className="input-time-form"></input>)}
+        {[...Array(ciclos)].map((e, i) =><input placeholder={`t${i+1}`} name={i} key={i} type="number" value={time[i] || ''} onChange={handleTime} className="input-time-form"></input>)}
       </div>
       <button className="submit-button small-btn" onClick={() =>{setCiclos(ciclos+10)}}>+ Tempos</button>
       </label>      
@@ -128,7 +125,7 @@ const Elemento = () => {
           />
         </label>
       </div>
-      </form>
+      </>
   );
 }
 
