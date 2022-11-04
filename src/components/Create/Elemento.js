@@ -1,23 +1,9 @@
 import React, { useState, useEffect} from "react";
 
-const Elemento = () => {
-  const[state, setState] = useState({
-    element:'',
-    ritmo:100,
-    frequencia:1,
-    fadiga:14.9,
-    tempoControle:0,
-    tempoNormal:0,
-    tempoBase:0,
-    tempoCiclos:[''],
-  });
+const Elemento = ({handleElement, element}) => {
   // const[show,setShow] = useState(true);
   const[time,setTime] = useState([""]);
   const[ciclos,setCiclos] = useState(10);
-
-  const handleChange = ({target:{name,value}})=>{
-    setState(prevState =>({...prevState,[name]:value}));
-  }
 
   const handleTime = ({target:{name,value}})=>{
       setTime(prevState =>({...prevState,[name]:value}));      
@@ -29,14 +15,14 @@ const Elemento = () => {
         return accumulator + Number(value);
       }, 0);
       const tm = Number(Math.round((sum/(Object.values(time).length)) * 100) / 100);
-      const tn = Number(Math.round((tm*(state.ritmo/100)) * 100) / 100);
-      const tb = Math.round(((tn/state.frequencia)*(1+(state.fadiga/100))) * 100) / 100;
-      setState(prevState =>({...prevState,tempoControle:Number(tm), tempoNormal:Number(tn), tempoBase:Number(tb),tempoCiclos:time}))
+      const tn = Number(Math.round((tm*(element.ritmo/100)) * 100) / 100);
+      const tb = Math.round(((tn/element.frequencia)*(1+(element.fadiga/100))) * 100) / 100;
+      // setState(prevState =>({...prevState,tempoControle:Number(tm), tempoNormal:Number(tn), tempoBase:Number(tb),tempoCiclos:time}))
     }, 300);
     return function() {
       clearInterval(id);
     }
-  }, [time, state.fadiga, state.ritmo, state.frequencia]);
+  }, [time, element.fadiga, element.ritmo, element.frequencia]);
   // useEffect roda apenas quando o objeto ou variavel muda, conforme [time]
 
   return (
@@ -47,10 +33,10 @@ const Elemento = () => {
           <input
           type="text"
           placeholder="Elemento"
-          value={state.element}
+          value={element.elemento}
           className="input-form"
-          name="element"
-          onChange={handleChange}
+          name="elemento"
+          onChange={handleElement}
           />
         </label>
       </div>
@@ -66,10 +52,10 @@ const Elemento = () => {
           <input
           type="number"
           placeholder="Ritmo"
-          value={state.ritmo}
+          value={element.ritmo}
           className="input-percentage-form"
           name="ritmo"
-          onChange={handleChange}
+          onChange={handleElement}
           />
         </label>
         <label> 
@@ -77,10 +63,10 @@ const Elemento = () => {
           <input
           type="number"
           placeholder="Frequência"
-          value={state.frequencia}
+          value={element.frequencia}
           className="input-percentage-form"
           name="frequencia"
-          onChange={handleChange}
+          onChange={handleElement}
           />
         </label>
         <label> 
@@ -88,10 +74,10 @@ const Elemento = () => {
           <input
             type="number"
             placeholder="Fadiga"
-            value={state.fadiga}
+            value={element.fadiga}
             className="input-percentage-form"
             name="fadiga"
-            onChange={handleChange}
+            onChange={handleElement}
           />
         </label>
         <label> 
@@ -100,7 +86,7 @@ const Elemento = () => {
           type="number"
           readOnly
           disabled="disabled"
-          value={state.tempoControle}
+          value={element.tempoControle}
           className="input-percentage-form"
           />
         </label>
@@ -110,7 +96,7 @@ const Elemento = () => {
           type="number"
           readOnly
           disabled="disabled"
-          value={state.tempoNormal}
+          value={element.tempoNormal}
           className="input-percentage-form"
           />
         </label>
@@ -120,7 +106,7 @@ const Elemento = () => {
           type="number"
           readOnly
           disabled="disabled"
-          value={state.tempoBase}
+          value={element.tempoBase}
           className="input-percentage-form"
           />
         </label>

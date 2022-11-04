@@ -15,6 +15,16 @@ const Cadastro = () => {
     data:'',
     observacao:'',
   })
+  const[element,setElement] = useState([[{
+    id:0, 
+    elemento:'',
+    ritmo:100,
+    frequencia:1,
+    fadiga:14.9,
+    tempoControle:0,
+    tempoNormal:0,
+    tempoBase:0,
+  }],])
   // const[{concessao, tempoNormal, tempoBasico}] = useState({
   //   concessao:'',
   //   tempoNormal:'',
@@ -24,11 +34,32 @@ const Cadastro = () => {
   const[times,setTimes] = useState(1);
   const handleClick=()=>{
     setTimes(times+1)
+    const tempElement = [{
+      id:times,
+      elemento:'',
+      ritmo:100,
+      frequencia:1,
+      fadiga:14.9,
+      tempoControle:0,
+      tempoNormal:0,
+      tempoBase:0,
+      tempoCiclos:[''],
+    }]
+  setElement(current => [...current, tempElement]);
+    console.log(element[0][0])
   }
 
   const handleChange = ({target:{name, value}})=>{
     setState(prevState =>({...prevState, [name]:value}));
   }
+
+  const handleElement = (e)=>{
+    // setElement(prevState =>({...prevState, element[0][0].[name]:value}));
+
+    let temp = element[0][0]
+    temp[e.target.name] = e.target.value;
+    setElement(prevState =>({...prevState,temp}))
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -50,7 +81,7 @@ const Cadastro = () => {
             {[...Array(times)].map((e, i) =>
               <>
                 <Divider>{`Elemento ${i+1}`}</Divider>
-                <Elemento key={i}/>
+                <Elemento handleElement={handleElement} key={i} element={element[i][0]}/>
               </>
             )}
             </form>
