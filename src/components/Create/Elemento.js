@@ -19,7 +19,7 @@ const Elemento = ({handleElementChange, element}) => {
   
       <div className="input-times-holder">
         <label> 
-          Ritmo(em %): 
+          Ritmo(%): 
           <input
           type="number"
           placeholder="Ritmo"
@@ -41,7 +41,7 @@ const Elemento = ({handleElementChange, element}) => {
           />
         </label>
         <label> 
-          Fadiga(em %): 
+          Fadiga(%): 
           <input
             type="number"
             placeholder="Fadiga"
