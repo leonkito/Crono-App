@@ -142,7 +142,7 @@ const Cadastro = () => {
           <h1 className="title">Tempo Padrão</h1>
           <div className="input-times-holder">
             <label> 
-            Tempo Base: 
+            Tempo Base Total: 
             <input
             type="number"
             readOnly
@@ -152,7 +152,7 @@ const Cadastro = () => {
             />
           </label>
           <label> 
-            Tempo Normal: 
+            Tempo Normal Total: 
             <input
             type="number"
             readOnly

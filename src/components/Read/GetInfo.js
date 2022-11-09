@@ -8,15 +8,38 @@ const GetInfo = () =>{
     operacao:'01 - Preparação de Máteria-Prima',
     revisao:'',
   })
-  const[cronoanalista,setCronoanalista] = useState('')
+  const[info,setInfo] = useState(<p>nothing to display</p>)
+  const[els,setEls] = useState(<p>nothing to display</p>)
   const handleSubmit = (e) =>{
     e.preventDefault();
     const timeRef = ref(databaseConfig, `tempos/${codigo}/${operacao}/${revisao}`);
     onValue(timeRef, (snapshot) => {
       const def = snapshot.val();
-      setCronoanalista(def.cronoanalista);
+      const dis = (
+      <>
+        <p>Cronoanalista: {def.cronoanalista}</p>
+        <p>Tempo Normal: {def.tempoNormal}</p>
+        <p>Concessão: {def.concessao}</p>
+        <p>Tempo Básico: {def.tempoBasico}</p>
+        <p>Data: {def.data}</p>
+        <p>Observação: {def.observacao}</p>
+      </>
+      )
+      setInfo(dis)
+      Object.entries(def).forEach(([key, val]) => {
+        if(isNaN(key) === false){
+          console.log(`element: ${key}`)
+          const divsq = (
+          <>{
+          Object.entries(val).map(([key,val]) =>{ 
+            return(<p>`${key}: ${val}`</p>)
+          })}
+          </>)
+            setEls(...els,divsq)
+        }});
     });
-  }
+}
+
 
   const handleChange = ({target:{name, value}})=>{
     setState(prevState =>({...prevState, [name]:value}));
@@ -65,7 +88,10 @@ const GetInfo = () =>{
       </div>
       <input className="submit-button" type="submit" value="Salvar" />
     </form>
-    <div>{cronoanalista}</div>
+    <div>     
+      {info}
+      {els}
+      </div>
   </div>
   )
 }
