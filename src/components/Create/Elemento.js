@@ -4,14 +4,14 @@ const Elemento = ({handleElementChange, element}) => {
   return (
     <>
       <div className="input-holder">
-        <label> 
-          Descrição da Tarefa: 
+        <label>
+          Descrição da Tarefa:
           <input
           type="text"
-          placeholder="Elemento"
           value={element.elemento}
           className="input-form"
           name="elemento"
+          id='elemento'
           onChange={handleElementChange}
           />
         </label>
@@ -22,7 +22,6 @@ const Elemento = ({handleElementChange, element}) => {
           Ritmo(%): 
           <input
           type="number"
-          placeholder="Ritmo"
           value={element.ritmo}
           className="input-percentage-form"
           name="ritmo"
@@ -33,7 +32,6 @@ const Elemento = ({handleElementChange, element}) => {
           Frequência: 
           <input
           type="number"
-          placeholder="Frequência"
           value={element.frequencia}
           className="input-percentage-form"
           name="frequencia"
@@ -44,7 +42,6 @@ const Elemento = ({handleElementChange, element}) => {
           Fadiga(%): 
           <input
             type="number"
-            placeholder="Fadiga"
             value={element.fadiga}
             className="input-percentage-form"
             name="fadiga"

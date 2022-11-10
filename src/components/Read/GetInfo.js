@@ -35,7 +35,7 @@ const GetInfo = () =>{
             return(<p>`${key}: ${val}`</p>)
           })}
           </>)
-            setEls(...els,divsq)
+            setEls((prevState =>({...prevState, divsq})))
         }});
     });
 }

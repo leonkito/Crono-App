@@ -28,6 +28,7 @@ const Cadastro = () => {
     tempoControle:0,
     tempoNormal:0,
     tempoBase:0,
+    ciclos:10,
     time:[""],
   }])
 
@@ -40,6 +41,7 @@ const Cadastro = () => {
       tempoControle:0,
       tempoNormal:0,
       tempoBase:0,
+      ciclos:10,
       time:[""],
     }
     setElement ([...element,newElement])
@@ -111,11 +113,13 @@ const Cadastro = () => {
     }
   }, [element,state.concessao]);
 
-  const[ciclos,setCiclos] = useState(10);
+  // const[ciclos,setCiclos] = useState(10);
 
-  const handleCiclos = (e) => {
+  const handleCiclos = (index) => (e) => {
     e.preventDefault();
-    setCiclos(ciclos+10)
+    let data = [...element];
+    data[index].ciclos = data[index].ciclos + 10
+    setElement(data)
   }
   return (
     <div className="main">
@@ -129,9 +133,9 @@ const Cadastro = () => {
             <Elemento element={elements} handleElementChange={event => handleElementChange(index, event)}/>
             <label>Ciclos:
             <div className="input-time-holder">
-              {[...Array(ciclos)].map((e, i) =><input key={`t${i}`} placeholder={`t${i+1}`} name="time" value={elements.time[i]|| ""} onChange={event => handleTime(index, event,i)} className="input-time-form"></input>)}
+              {[...Array(elements.ciclos)].map((e, i) =><input key={`t${i}`} placeholder={`t${i+1}`} name="time" value={elements.time[i]|| ""} onChange={event => handleTime(index, event,i)} className="input-time-form"></input>)}
             </div>
-            <button className="submit-button small-btn" onClick={handleCiclos}>+ Tempos</button>
+            <button className="submit-button small-btn" onClick={handleCiclos(index)}>+ Tempos</button>
             </label>    
           </div>
           )}

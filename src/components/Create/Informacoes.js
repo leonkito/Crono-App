@@ -15,7 +15,6 @@ const Informacoes = ({handleChange, state}) => {
             Código: 
             <input
             type="text"
-            placeholder="Código do Produto"
             value={state.codigo}
             className="input-form"
             name="codigo"
@@ -45,7 +44,6 @@ const Informacoes = ({handleChange, state}) => {
           Cronoanalista: 
           <input
           type="text"
-          placeholder="Cronoanalista"
           value={state.cronoanalista}
           className="input-form"
           name="cronoanalista"
@@ -56,7 +54,6 @@ const Informacoes = ({handleChange, state}) => {
           Centro de Trabalho: 
             <input
             type="text"
-            placeholder="Centro de Trabalho"
             value={state.centroTrabalho}
             className="input-form"
             name="centroTrabalho"
@@ -67,7 +64,6 @@ const Informacoes = ({handleChange, state}) => {
           Data:
             <input
             type="text"
-            placeholder="Data"
             value={state.data}
             className="input-form"
             name="data"
@@ -78,7 +74,6 @@ const Informacoes = ({handleChange, state}) => {
           Revisão:
             <input
             type="number"
-            placeholder="N° da revisão"
             value={state.revisao}
             className="input-form"
             name="revisao"
@@ -89,7 +84,6 @@ const Informacoes = ({handleChange, state}) => {
           Observação:
             <input
             type="text"
-            placeholder="Observação"
             value={state.observacao}
             className="input-form"
             name="observacao"
