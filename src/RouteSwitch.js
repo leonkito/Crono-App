@@ -6,7 +6,7 @@ import Header from './components/Functional/Header'
 const RouteSwitch = () => {
   return (
     <BrowserRouter>
-    <div>
+    <div className="home">
       <Header />
       <Routes>
         <Route path="/" element={<Cadastro/>} />
