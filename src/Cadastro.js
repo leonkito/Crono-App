@@ -85,6 +85,7 @@ const Cadastro = () => {
       TempoBase: elements.tempoBase,
       Ciclos: elements.time,
       })})
+      
     // TODO add on edit mode to change in database only what has been changed in the forms, cause set changes all the reference if nothing else is especified 
   }
   useEffect(function() {
@@ -126,58 +127,65 @@ const Cadastro = () => {
       <Informacoes handleChange={handleChange} state={state}/>
       <div className="form-holder">
         <h1 className="title">Elementos</h1>
-        <form>
           {element.map((elements,index)=>
-          <div key={`d${index}`}>
+          <>
             <Divider>{`Elemento ${index+1}`}</Divider>
             <Elemento element={elements} handleElementChange={event => handleElementChange(index, event)}/>
-            <label>Ciclos:
-            <div className="input-time-holder">
-              {[...Array(elements.ciclos)].map((e, i) =><input key={`t${i}`} placeholder={`t${i+1}`} name="time" value={elements.time[i]|| ""} onChange={event => handleTime(index, event,i)} className="input-time-form"></input>)}
-            </div>
-            <button className="submit-button small-btn" onClick={handleCiclos(index)}>+ Tempos</button>
-            </label>    
-          </div>
+            <div className="input-box">
+              <label>Ciclos:</label> 
+              <div className="group-form-lines group-form">
+                {[...Array(elements.ciclos)].map((e, i) =><input key={`t${i}`} placeholder={`t${i+1}`} name="time" value={elements.time[i]|| ""} onChange={event => handleTime(index, event,i)} className="input-form input-time-form"></input>)}
+              </div>
+              <div className="center">
+                <button className="submit-button small-btn" onClick={handleCiclos(index)}>+ Tempos</button>
+              </div>
+              </div>
+          </>
           )}
-        </form>
-        <button className="submit-button medium-btn" onClick={addElement}>Adicionar Elemento</button>
+        <div className="center">
+          <button className="submit-button small-btn" onClick={addElement}>Adicionar Elemento</button>
+        </div>
       </div>
       <div className="form-holder">
-          <h1 className="title">Tempo Padrão</h1>
-          <div className="input-times-holder">
-            <label> 
-            Tempo Base Total: 
+        <h1 className="title">Tempo Padrão - Resumo</h1>
+        <div className="group-form">
+          <div className="input-box">
+            <label htmlFor="tem2">Tempo Base Total:</label> 
             <input
-            type="number"
-            readOnly
-            disabled="disabled"
-            value={state.tempoBasico}
-            className="input-percentage-form"
+              type="number"
+              readOnly
+              id="tem2"
+              disabled="disabled"
+              value={state.tempoBasico}
+              className="input-form"
             />
-          </label>
-          <label> 
-            Tempo Normal Total: 
-            <input
-            type="number"
-            readOnly
-            disabled="disabled"
-            value={state.tempoNormal}
-            className="input-percentage-form"
-            />
-          </label>
-            <label> 
-            Concessão(%): 
-            <input
-            type="number"
-            name="concessao"
-            value={state.concessao}
-            onChange={handleChange}
-            className="input-percentage-form"
-            />
-          </label>
           </div>
-          <button className="submit-button medium-btn" onClick={handleSubmit}>submit</button>
+          <div className="input-box">
+            <label htmlFor="tem1">Tempo Normal Total:</label>
+            <input
+              readOnly
+              id="tem1"
+              disabled="disabled"
+              value={state.tempoNormal}
+              className="input-form"
+            />
           </div>
+          <div className="input-box">
+            <label htmlFor="con1">Concessão(%):</label>
+              <input
+                type="number"
+                name="concessao"
+                id="con1"
+                value={state.concessao}
+                onChange={handleChange}
+                className="input-form"
+              />
+          </div>
+        </div>
+        <div className="center">
+          <button className="submit-button small-btn" onClick={handleSubmit}>Salvar</button>
+        </div>
+      </div>
     </div>
   );
 }

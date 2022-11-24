@@ -8,91 +8,176 @@ const Informacoes = ({handleChange, state}) => {
 
   return (
     <div className="form-holder">
-      <p className="title">INFORMAÇÕES GERAIS</p>
+      <p className="title">Informações Cronoanálise</p>
       {show && (
       <form onSubmit={handleSubmit}>
-          <label> 
-            Código: 
+        <div className="group-form">
+          <div className="input-box">
+            <label htmlFor='codigo'>Código:</label> 
             <input
-            type="text"
-            value={state.codigo}
-            className="input-form"
-            name="codigo"
-            onChange={handleChange}
+              type="text"
+              className="input-form"
+              name="codigo"
+              id="codigo"
+              value={state.codigo}
+              onChange={handleChange}
             />
-          </label>
-          <label>
-          Operação:
-            <select value={state.operacao} className="input-form" name="operacao" onChange={handleChange}>
-              <option value="01 - Preparação de Máteria-Prima">01 - Preparação de Máteria-Prima</option>
-              <option value="02 - Mistura">02 - Mistura</option>
-              <option value="03 - Envase">03 - Envase</option>
-              <option value="04 - Embalagem e Acondicionamento">04 - Embalagem e Acondicionamento</option>
-              <option value="05 - Setup e Limpeza">05 - Setup e Limpeza</option>
-            </select>
-          </label>
-          <label>
-          Turno:
-          <select value={state.turno} className="input-form" name="turno" onChange={handleChange}>
-            <option value="01">1° Turno</option>
-            <option value="02">2° Turno</option>
-            <option value="03">3° Turno</option>
-            <option value="04">Normal</option>
-          </select>
-          </label>
-          <label> 
-          Cronoanalista: 
-          <input
-          type="text"
-          value={state.cronoanalista}
-          className="input-form"
-          name="cronoanalista"
-          onChange={handleChange}
-          />
-          </label>
-          <label> 
-          Centro de Trabalho: 
+          </div>
+          <div className="input-box">
+            <label htmlFor="revisao">Revisão:</label>
             <input
+              type="number"
+              className="input-form"
+              name="revisao"
+              id="revisao"
+              value={state.revisao}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="input-box">
+            <label htmlFor="cronoanalista">Cronoanalista:</label>
+            <input
+              type="text"
+              className="input-form"
+              name="cronoanalista"
+              id="cronoanalista"
+              value={state.cronoanalista}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="input-box">
+            <label htmlFor="centroTrabalho">Centro de Trabalho:</label>
+            <input
+              type="text"
+              className="input-form"
+              name="centroTrabalho"
+              id="centroTrabalho"
+              onChange={handleChange}
+              value={state.centroTrabalho}
+            />
+          </div>
+          <div className="input-box">
+            <label htmlFor="data">Data:</label>
+            <input
+              type="text"
+              className="input-form"
+              name="data"
+              id="data"
+              value={state.data}
+              onChange={handleChange}
+            />
+          </div>
+        </div>
+        <div className="sided group-form">
+        <div className="input-box">
+          <label>Operação:</label>
+          <div>
+            <div>
+              <input
+                type="radio"
+                value='01 - Preparação de Máteria-Prima'
+                name="operacao"
+                onChange={handleChange}
+                checked={state.operacao === '01 - Preparação de Máteria-Prima'}
+              /> 01 - Preparação de Máteria-Prima
+            </div>
+            <div>
+              <input
+                type="radio"
+                value='02 - Mistura'
+                name="operacao"
+                onChange={handleChange}
+                checked={state.operacao === '02 - Mistura'}
+              /> 02 - Mistura
+            </div>
+            <div>
+              <input
+                type="radio"
+                value='03 - Envase'
+                name="operacao"
+                onChange={handleChange}
+                checked={state.operacao === '03 - Envase'}
+              /> 03 - Envase
+            </div>
+            <div>
+              <input
+                type="radio"
+                value='04 - Embalagem e Acondicionamento'
+                name="operacao"
+                onChange={handleChange}
+                checked={state.operacao === '04 - Embalagem e Acondicionamento'}
+              /> 04 - Embalagem e Acondicionamento
+            </div>
+            <div>
+              <input
+                type="radio"
+                value='05 - Setup e Limpeza'
+                name="operacao"
+                onChange={handleChange}
+                checked={state.operacao === '05 - Setup e Limpeza'}
+              /> 05 - Setup e Limpeza
+            </div>
+          </div>
+        </div>
+        <div className="input-box">
+          <label>Turno:</label>
+          <div>
+            <div>
+              <input
+                type="radio"
+                value='1 Turno<'
+                name="operacao"
+                onChange={handleChange}
+                checked={state.operacao === '1 Turno<'}
+              /> 1° Turno
+            </div>
+            <div>
+              <input
+                type="radio"
+                value='2 Turno<'
+                name="operacao"
+                onChange={handleChange}
+                checked={state.operacao === '2 Turno<'}
+              /> 2° Turno
+            </div>
+            <div>
+              <input
+                type="radio"
+                value='3 Turno'
+                name="operacao"
+                onChange={handleChange}
+                checked={state.operacao === '3 Turno'}
+              /> 3° Turno
+            </div>
+            <div>
+              <input
+                type="radio"
+                value='normal'
+                name="operacao"
+                onChange={handleChange}
+                checked={state.operacao === 'normal'}
+              /> Normal
+            </div>
+          </div>
+        </div>
+        <div className="full input-box">
+          <label htmlFor="observacao">Observação:</label>
+          <textarea
             type="text"
-            value={state.centroTrabalho}
-            className="input-form"
-            name="centroTrabalho"
-            onChange={handleChange}
-          />
-          </label>
-          <label> 
-          Data:
-            <input
-            type="text"
-            value={state.data}
-            className="input-form"
-            name="data"
-            onChange={handleChange}
-          />
-          </label>
-          <label> 
-          Revisão:
-            <input
-            type="number"
-            value={state.revisao}
-            className="input-form"
-            name="revisao"
-            onChange={handleChange}
-          />
-          </label>
-          <label> 
-          Observação:
-            <input
-            type="text"
-            value={state.observacao}
             className="input-form"
             name="observacao"
+            id="observacao"
+            value={state.observacao}
             onChange={handleChange}
           />
-          </label>
+        </div>
+        </div>
+
       </form>
       )}
+      <div className="center">
         <button className="submit-button small-btn" onClick={() =>setShow(show=== true ? false : true)}>{show ? 'Salvar' : 'Editar'}</button>
+      </div>
     </div>
   )
 }

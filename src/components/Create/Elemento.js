@@ -3,83 +3,80 @@ import React from "react";
 const Elemento = ({handleElementChange, element}) => {
   return (
     <>
-      <div className="input-holder">
-        <label>
-          Descrição da Tarefa:
-          <input
+      <div className="input-box">
+        <label htmlFor="elemento">Descrição da Tarefa:</label>
+        <textarea
           type="text"
           value={element.elemento}
           className="input-form"
           name="elemento"
           id='elemento'
           onChange={handleElementChange}
-          />
-        </label>
+        />
       </div>
-  
-      <div className="input-times-holder">
-        <label> 
-          Ritmo(%): 
+      <div className="group-form">
+        <div className="input-box">
+          <label htmlFor="ritmo">Ritmo(%):</label>
           <input
-          type="number"
-          value={element.ritmo}
-          className="input-percentage-form"
-          name="ritmo"
-          onChange={handleElementChange}
+            type="number"
+            value={element.ritmo}
+            className="input-form"
+            name="ritmo"
+            id="ritmo"
+            onChange={handleElementChange}
           />
-        </label>
-        <label> 
-          Frequência: 
+        </div>
+        <div className="input-box">
+          <label htmlFor="frequencia">Frequência:</label>
           <input
-          type="number"
-          value={element.frequencia}
-          className="input-percentage-form"
-          name="frequencia"
-          onChange={handleElementChange}
+            type="number"
+            value={element.frequencia}
+            className="input-form"
+            name="frequencia"
+            id="frequencia"
+            onChange={handleElementChange}
           />
-        </label>
-        <label> 
-          Fadiga(%): 
+        </div>
+        <div className="input-box">
+          <label htmlFor="fadiga">Fadiga(%):</label>
           <input
             type="number"
             value={element.fadiga}
-            className="input-percentage-form"
+            className="input-form"
             name="fadiga"
+            id="fadiga"
             onChange={handleElementChange}
           />
-        </label>
-        <label> 
-          Tempo Médio: 
+        </div>
+        <div className="input-box">
+          <label>Tempo Médio:</label>
           <input
-          type="number"
-          readOnly
-          disabled="disabled"
-          value={element.tempoControle}
-          className="input-percentage-form"
+            readOnly
+            disabled="disabled"
+            value={element.tempoControle}
+            className="input-form"
           />
-        </label>
-        <label> 
-          Tempo Normal: 
+        </div>
+        <div className="input-box">
+          <label>Tempo Normal:</label>
           <input
-          type="number"
-          readOnly
-          disabled="disabled"
-          value={element.tempoNormal}
-          className="input-percentage-form"
+            readOnly
+            disabled="disabled"
+            value={element.tempoNormal}
+            className="input-form"
           />
-        </label>
-        <label> 
-          Tempo Base: 
+        </div>
+        <div className="input-box">
+          <label>Tempo Base:</label>
           <input
-          type="number"
-          readOnly
-          disabled="disabled"
-          value={element.tempoBase}
-          className="input-percentage-form"
+            readOnly
+            disabled="disabled"
+            value={element.tempoBase}
+            className="input-form"
           />
-        </label>
+        </div>
       </div>
-      </>
+    </>
   );
 }
 
