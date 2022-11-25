@@ -11,7 +11,7 @@ const Cadastro = () => {
     codigo:'',
     operacao:'',
     revisao:'',
-    turno:'',
+    turno:'1 turno',
     cronoanalista:'',
     centroTrabalho:'',
     data:'',
@@ -64,30 +64,39 @@ const Cadastro = () => {
   }
   const handleSubmit = (e) => {
     e.preventDefault();
-    let timeRef = ref(databaseConfig, `tempos/${state.codigo}/${state.operacao}/${state.revisao}`)
-    set(timeRef,{
-      cronoanalista : state.cronoanalista,
-      data: state.data,
-      observacao: state.observacao,
-      concessao: state.concessao,
-      tempoNormal: state.tempoNormal,
-      tempoBasico: state.tempoBasico,
-    })
-    element.forEach((elements,index)=>{
-      timeRef = ref(databaseConfig, `tempos/${state.codigo}/${state.operacao}/${state.revisao}/${index}`)
+    if (state.codigo !== '' && state.operacao !== '' && state.revisao !== ''){
+      let timeRef = ref(databaseConfig, `tempos/${state.codigo}/${state.operacao}/${state.revisao}`)
       set(timeRef,{
-      descricao: elements.elemento,
-      ritmo: elements.ritmo,
-      frequencia: elements.frequencia,
-      fadiga: elements.fadiga,
-      tempoControle: elements.tempoControle,
-      tempoNormal: elements.tempoNormal,
-      TempoBase: elements.tempoBase,
-      Ciclos: elements.time,
-      })})
-      
-    // TODO add on edit mode to change in database only what has been changed in the forms, cause set changes all the reference if nothing else is especified 
-  }
+        cronoanalista : state.cronoanalista,
+        data: state.data,
+        observacao: state.observacao,
+        concessao: state.concessao,
+        tempoNormal: state.tempoNormal,
+        tempoBasico: state.tempoBasico,
+      })
+      element.forEach((elements,index)=>{
+        if (elements.elemento !== '' && elements.tempoBase !== ''){
+          timeRef = ref(databaseConfig, `tempos/${state.codigo}/${state.operacao}/${state.revisao}/${index}`)
+          set(timeRef,{
+            descricao: elements.elemento,
+            ritmo: elements.ritmo,
+            frequencia: elements.frequencia,
+            fadiga: elements.fadiga,
+            tempoControle: elements.tempoControle,
+            tempoNormal: elements.tempoNormal,
+            TempoBase: elements.tempoBase,
+            Ciclos: elements.time,
+          })
+          console.log(`elemento ${index+1} salvo`)
+        }else{
+          console.log(`elemento ${index+1} não salvo`)
+        }
+      })
+      console.log('Saved')  
+    } else{
+      console.log('info missing')
+    }
+  } 
   useEffect(function() {
     const id = setInterval(function log() {
       let data =[...element];
@@ -128,7 +137,7 @@ const Cadastro = () => {
       <div className="form-holder">
         <h1 className="title">Elementos</h1>
           {element.map((elements,index)=>
-          <>
+          <div key={index}>
             <Divider>{`Elemento ${index+1}`}</Divider>
             <Elemento element={elements} handleElementChange={event => handleElementChange(index, event)}/>
             <div className="input-box">
@@ -139,8 +148,8 @@ const Cadastro = () => {
               <div className="center">
                 <button className="submit-button small-btn" onClick={handleCiclos(index)}>+ Tempos</button>
               </div>
-              </div>
-          </>
+            </div>
+          </div>
           )}
         <div className="center">
           <button className="submit-button small-btn" onClick={addElement}>Adicionar Elemento</button>
@@ -148,7 +157,7 @@ const Cadastro = () => {
       </div>
       <div className="form-holder">
         <h1 className="title">Tempo Padrão - Resumo</h1>
-        <div className="group-form">
+        <div className="space-around group-form">
           <div className="input-box">
             <label htmlFor="tem2">Tempo Base Total:</label> 
             <input

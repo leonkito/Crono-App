@@ -57,6 +57,15 @@ const Informacoes = ({handleChange, state}) => {
             />
           </div>
           <div className="input-box">
+            <label>Turno:</label>
+              <select value={state.turno} className="input-form" name="turno" onChange={handleChange}>
+                <option value="1 turno">1° Turno</option>
+                <option value="2 turno">2° Turno</option>
+                <option value="3 turno">3° Turno</option>
+                <option value="normal">Normal</option>
+              </select>
+          </div>
+          <div className="input-box">
             <label htmlFor="data">Data:</label>
             <input
               type="text"
@@ -116,47 +125,6 @@ const Informacoes = ({handleChange, state}) => {
                 onChange={handleChange}
                 checked={state.operacao === '05 - Setup e Limpeza'}
               /> 05 - Setup e Limpeza
-            </div>
-          </div>
-        </div>
-        <div className="input-box">
-          <label>Turno:</label>
-          <div>
-            <div>
-              <input
-                type="radio"
-                value='1 Turno<'
-                name="operacao"
-                onChange={handleChange}
-                checked={state.operacao === '1 Turno<'}
-              /> 1° Turno
-            </div>
-            <div>
-              <input
-                type="radio"
-                value='2 Turno<'
-                name="operacao"
-                onChange={handleChange}
-                checked={state.operacao === '2 Turno<'}
-              /> 2° Turno
-            </div>
-            <div>
-              <input
-                type="radio"
-                value='3 Turno'
-                name="operacao"
-                onChange={handleChange}
-                checked={state.operacao === '3 Turno'}
-              /> 3° Turno
-            </div>
-            <div>
-              <input
-                type="radio"
-                value='normal'
-                name="operacao"
-                onChange={handleChange}
-                checked={state.operacao === 'normal'}
-              /> Normal
             </div>
           </div>
         </div>

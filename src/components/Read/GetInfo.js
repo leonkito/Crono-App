@@ -12,32 +12,83 @@ const GetInfo = () =>{
   const[els,setEls] = useState(<p>nothing to display</p>)
   const handleSubmit = (e) =>{
     e.preventDefault();
+    if (codigo !=='' && revisao !== ''){
     const timeRef = ref(databaseConfig, `tempos/${codigo}/${operacao}/${revisao}`);
     onValue(timeRef, (snapshot) => {
       const def = snapshot.val();
-      const dis = (
-      <>
-        <p>Cronoanalista: {def.cronoanalista}</p>
-        <p>Tempo Normal: {def.tempoNormal}</p>
-        <p>Concessão: {def.concessao}</p>
-        <p>Tempo Básico: {def.tempoBasico}</p>
-        <p>Data: {def.data}</p>
-        <p>Observação: {def.observacao}</p>
-      </>
-      )
-      setInfo(dis)
-      Object.entries(def).forEach(([key, val]) => {
-        if(isNaN(key) === false){
-          console.log(`element: ${key}`)
-          const divsq = (
-          <>{
-          Object.entries(val).map(([key,val]) =>{ 
-            return(<p>`${key}: ${val}`</p>)
-          })}
-          </>)
-            setEls((prevState =>({...prevState, divsq})))
-        }});
+      console.log(def)
+      if (def !== null){
+        const dis = (
+          <>
+            <div className="group-form" key="abc">
+              <div className="input-box">
+                <label>Cronoanalista:</label>
+                <input
+                  readOnly
+                  disabled="disabled"
+                  value={def.cronoanalista}
+                  className="input-form"
+                />
+              </div>
+              <div className="input-box">
+                <label>Tempo Básico:</label>
+                <input
+                  readOnly
+                  disabled="disabled"
+                  value={def.tempoBasico}
+                  className="input-form"
+                />
+              </div>
+
+              <div className="input-box">
+                <label>Concessão:</label>
+                <input
+                  readOnly
+                  disabled="disabled"
+                  value={def.concessao}
+                  className="input-form"
+                />
+              </div>
+              <div className="input-box">
+                <label>Tempo normal:</label>
+                <input
+                  readOnly
+                  disabled="disabled"
+                  value={def.tempoNormal}
+                  className="input-form"
+                />
+              </div>
+            </div>
+            <div className="input-box">
+              <label>Observação:</label>
+              <textarea
+                readOnly
+                disabled="disabled"
+                value={def.observacao}
+                className="input-form"
+              />
+            </div>
+          </>
+        )
+        setInfo(dis)
+        Object.entries(def).forEach(([key, val]) => {
+          if(isNaN(key) === false){
+            console.log(`element: ${key}`)
+            console.log(val)
+            const divsq = (
+            <>{
+            Object.entries(val).map(([key,val]) =>{ 
+              return(<p>`${key}: ${val}`</p>)
+            })}
+            </>)
+            // TODO need to go for every element and display the values as a table.
+              setEls((prevState =>({...prevState, divsq})))
+          }});
+      }
     });
+  } else {
+    console.log("info missing")
+  }
 }
 
 
@@ -45,54 +96,91 @@ const GetInfo = () =>{
     setState(prevState =>({...prevState, [name]:value}));
   }
   return(
-  <div className="form-holder">  
-    <h1 className="title">Buscar Informações</h1>
-    <form onSubmit={handleSubmit}>
-      <div className="input-holder">
-        <label> 
-        Código: 
+    <>
+    <div className="form-holder">  
+      <h1 className="title">Buscar Informações</h1>
+      <div className="start group-form">
+        <div className="input-box">
+          <label htmlFor='codigo'>Código:</label> 
           <input
-          type="text"
-          placeholder="Código do Produto"
-          value={codigo}
-          className="input-form"
-          name="codigo"
-          onChange={handleChange}
+            type="text"
+            className="input-form"
+            name="codigo"
+            id="codigo"
+            value={codigo}
+            onChange={handleChange}
           />
-        </label>
-      </div>
-      <div className="input-holder">
-        <label>
-        Operação:
-        <select value={operacao} className="input-form" name="operacao" onChange={handleChange}>
-          <option value="01 - Preparação de Máteria-Prima">01 - Preparação de Máteria-Prima</option>
-          <option value="02 - Mistura">02 - Mistura</option>
-          <option value="03 - Envase">03 - Envase</option>
-          <option value="04 - Embalagem e Acondicionamento">04 - Embalagem e Acondicionamento</option>
-          <option value="05 - Setup e Limpeza">05 - Setup e Limpeza</option>
-        </select>
-        </label>
-      </div>
-      <div className="input-holder">
-        <label> 
-        Revisão:
+        </div>
+        <div className="input-box">
+          <label htmlFor="revisao">Revisão:</label>
           <input
-          type="text"
-          placeholder="N° da revisão"
-          value={revisao}
-          className="input-form"
-          name="revisao"
-          onChange={handleChange}
+            type="number"
+            className="input-form"
+            name="revisao"
+            id="revisao"
+            value={revisao}
+            onChange={handleChange}
           />
-        </label>
+        </div>
       </div>
-      <input className="submit-button" type="submit" value="Salvar" />
-    </form>
-    <div>     
+        <div className="input-box">
+          <label>Operação:</label>
+          <div className="group-form">
+            <div>
+              <input
+                type="radio"
+                value='01 - Preparação de Máteria-Prima'
+                name="operacao"
+                onChange={handleChange}
+                checked={operacao === '01 - Preparação de Máteria-Prima'}
+              /> 01 - Preparação de Máteria-Prima
+            </div>
+            <div>
+              <input
+                type="radio"
+                value='02 - Mistura'
+                name="operacao"
+                onChange={handleChange}
+                checked={operacao === '02 - Mistura'}
+              /> 02 - Mistura
+            </div>
+            <div>
+              <input
+                type="radio"
+                value='03 - Envase'
+                name="operacao"
+                onChange={handleChange}
+                checked={operacao === '03 - Envase'}
+              /> 03 - Envase
+            </div>
+            <div>
+              <input
+                type="radio"
+                value='04 - Embalagem e Acondicionamento'
+                name="operacao"
+                onChange={handleChange}
+                checked={operacao === '04 - Embalagem e Acondicionamento'}
+              /> 04 - Embalagem e Acondicionamento
+            </div>
+            <div>
+              <input
+                type="radio"
+                value='05 - Setup e Limpeza'
+                name="operacao"
+                onChange={handleChange}
+                checked={operacao === '05 - Setup e Limpeza'}
+              /> 05 - Setup e Limpeza
+            </div>
+          </div>
+        </div>
+        <div className="center">
+          <button className="submit-button small-btn" onClick={handleSubmit}>Buscar</button>
+        </div>
+  </div>
       {info}
       {els}
-      </div>
-  </div>
+
+  </>
   )
 }
 
