@@ -10,6 +10,7 @@ const Header = () =>{
           <div className="rotas" onClick={() => navigate("/")}>Cadastro</div>
           <div className="rotas" onClick={() => navigate("/visualizar")}>Visualizar</div>
           <div className="rotas"onClick={() => navigate("/dashboard")}>Dashboard</div>
+          <div className="rotas"onClick={() => navigate("/estrutura")}>Estrutura</div>
         </div>
       </div>
   )

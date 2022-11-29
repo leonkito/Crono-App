@@ -46,7 +46,11 @@ const Cadastro = () => {
     }
     setElement ([...element,newElement])
   }
-
+  const removeElement = () =>{
+    let newElement  = [...element]
+    newElement.pop()
+    setElement(newElement)
+  }
   const handleChange = ({target:{name, value}})=>{
     setState(prevState =>({...prevState, [name]:value}));
   }
@@ -62,8 +66,7 @@ const Cadastro = () => {
     data[index][event.target.name][i] = event.target.value;
     setElement(data)
   }
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     if (state.codigo !== '' && state.operacao !== '' && state.revisao !== ''){
       let timeRef = ref(databaseConfig, `tempos/${state.codigo}/${state.operacao}/${state.revisao}`)
       set(timeRef,{
@@ -76,7 +79,7 @@ const Cadastro = () => {
       })
       element.forEach((elements,index)=>{
         if (elements.elemento !== '' && elements.tempoBase !== ''){
-          timeRef = ref(databaseConfig, `tempos/${state.codigo}/${state.operacao}/${state.revisao}/${index}`)
+          timeRef = ref(databaseConfig, `tempos/${state.codigo}/${state.operacao}/${state.revisao}/elemento ${index +1}`)
           set(timeRef,{
             descricao: elements.elemento,
             ritmo: elements.ritmo,
@@ -92,11 +95,11 @@ const Cadastro = () => {
           console.log(`elemento ${index+1} não salvo`)
         }
       })
-      console.log('Saved')  
+      console.log('Saved')
     } else{
       console.log('info missing')
     }
-  } 
+  }
   useEffect(function() {
     const id = setInterval(function log() {
       let data =[...element];
@@ -141,7 +144,7 @@ const Cadastro = () => {
             <Divider>{`Elemento ${index+1}`}</Divider>
             <Elemento element={elements} handleElementChange={event => handleElementChange(index, event)}/>
             <div className="input-box">
-              <label>Ciclos:</label> 
+              <label>Ciclos:</label>
               <div className="group-form-lines group-form">
                 {[...Array(elements.ciclos)].map((e, i) =><input key={`t${i}`} placeholder={`t${i+1}`} name="time" value={elements.time[i]|| ""} onChange={event => handleTime(index, event,i)} className="input-form input-time-form"></input>)}
               </div>
@@ -152,6 +155,7 @@ const Cadastro = () => {
           </div>
           )}
         <div className="center">
+        <button className="submit-button small-btn" onClick={removeElement}>Remover Elemento</button>
           <button className="submit-button small-btn" onClick={addElement}>Adicionar Elemento</button>
         </div>
       </div>
@@ -159,7 +163,7 @@ const Cadastro = () => {
         <h1 className="title">Tempo Padrão - Resumo</h1>
         <div className="space-around group-form">
           <div className="input-box">
-            <label htmlFor="tem2">Tempo Base Total:</label> 
+            <label htmlFor="tem2">Tempo Base Total:</label>
             <input
               type="number"
               readOnly
