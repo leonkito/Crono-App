@@ -2,12 +2,11 @@
 //containing the op registered and the review numbers
 
 import databaseConfig from '../Functional/databaseConfig';
-import {React, useEffect, useState} from "react";
-import {ref,  onValue} from "firebase/database";
+import {React,useEffect, useState, useMemo, useRef} from "react";
+import { ref, get } from "firebase/database";
 
 const ViewBoard = () =>{
-    const timeRef = ref(databaseConfig, `tempos/`);
-    const[time,setTime]= useState(10)
+    const dataFetchedRef = useRef(false);
     const[produtos,setProdutos] = useState([])
     const[selected,setSelected] = useState({
         produto:'',
@@ -15,38 +14,62 @@ const ViewBoard = () =>{
         revisao:'',
     })
     const[dbData,setDbData] = useState('')
-
+    const dbRef = ref(databaseConfig, `tempos/`);
     const getData = () =>{
-        onValue(timeRef, (snapshot) => {
-            setDbData(snapshot.val())
-            const product = [];
-            Object.entries(dbData).forEach(([key,val])=>{
-                let newProduct = {
-                    codigo:key,
-                    operacoes:[],
-                }
-                Object.entries(val).forEach(([key,val])=>{
-                    let operacao = {
-                        operacao: key,
-                        revisao:[],
-                    }
-                    Object.entries(val).forEach(([key])=>{
-                        operacao.revisao.push(key)
-                    })
-                    newProduct.operacoes.push(operacao)
-                })
-                product.push(newProduct)
-            })
-            setProdutos(product)
+        get(dbRef).then((snapshot) => {
+            if (snapshot.exists()) {
+                setDbData(snapshot.val());
+                console.log('oi')
+            } else {
+                console.log("No data available");
+            }
+            }).catch((error) => {
+            console.error(error);
         })
-        console.log(produtos)
+    }
+    // 
+
+    const makeData = () =>{
+        const product = [];
+        console.log(dbData)
+        Object.entries(dbData).forEach(([key,val])=>{
+            let newProduct = {
+                codigo:key,
+                operacoes:[],
+            }
+            Object.entries(val).forEach(([key,val])=>{
+                let operacao = {
+                    operacao: key,
+                    revisao:[],
+                }
+                Object.entries(val).forEach(([key])=>{
+                    operacao.revisao.push(key)
+                })
+                newProduct.operacoes.push(operacao)
+            })
+            product.push(newProduct)
+        })
+        setProdutos(product)
     }
     useEffect(() => {
+        if (dataFetchedRef.current) return;
+        dataFetchedRef.current = true;
         getData();
-      }, [time]);
-    // const searchData = ()=>{
+    },[]);
 
-    // }
+    useMemo(() => {
+        makeData()
+    }, [dbData]);
+    const[panel,setPanel]=useState(<p>there is nothing here</p>)
+    const searchData = ()=>{
+        console.log(selected)
+        const info = Object.entries(selected).map((val)=>{
+                console.log('this is the key:' + val[0])
+                console.log('this is the val:' + val[1])
+        })
+
+        setPanel(info)
+    }
     return(
         <div className="main">
             <h1 className="title">Dashboard</h1>
@@ -57,16 +80,17 @@ const ViewBoard = () =>{
                         <>
                             <div>{op.operacao}</div>
                             {op.revisao.map((rev)=>
-                                <div onClick={() => setSelected({...selected,produto: produto.codigo,operacao:op.operacao, revisao: rev})}>Revisão: {rev}</div>
+                                // <div onClick={() => setSelected({...selected,produto: produto.codigo,operacao:op.operacao, revisao: rev})}>Revisão: {rev}</div>
+                                <div onClick={() => setSelected(dbData[produto.codigo][op.operacao][rev])}>Revisão: {rev}</div>
+                            
                             )}
                         </>
                     )}
                 </div>                  
             )}
-            <button className="submit-button small-btn" onClick={() => setTime(time + 5)}>+ Tempos</button>
-            <div>Produto: {selected.produto}</div>
-            <div>Operação: {selected.operacao}</div>
-            <div>Revisão: {selected.revisao}</div>
+            <button className="submit-button small-btn" onClick={searchData}>+ Tempos</button>
+            
+            <div>{panel}</div>
         </div>
     )
 }
