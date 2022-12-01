@@ -19,7 +19,7 @@ const ViewBoard = () =>{
         get(dbRef).then((snapshot) => {
             if (snapshot.exists()) {
                 setDbData(snapshot.val());
-                console.log('oi')
+                console.log('Data retrieved from Database')
             } else {
                 console.log("No data available");
             }
@@ -31,7 +31,6 @@ const ViewBoard = () =>{
 
     const makeData = () =>{
         const product = [];
-        console.log(dbData)
         Object.entries(dbData).forEach(([key,val])=>{
             let newProduct = {
                 codigo:key,
@@ -62,14 +61,39 @@ const ViewBoard = () =>{
     }, [dbData]);
     const[panel,setPanel]=useState(<p>there is nothing here</p>)
     const searchData = ()=>{
-        console.log(selected)
         const info = Object.entries(selected).map((val)=>{
-                console.log('this is the key:' + val[0])
-                console.log('this is the val:' + val[1])
+            if (typeof val[1] !== 'object') {
+                return(
+                    <p>{val[0]}:{val[1]}</p>
+                )
+            } else{
+                return(
+                    <>
+                        <p>{val[0]}</p>
+                    {Object.entries(val[1]).map((elemento)=>{
+                        if (elemento[0] === 'Ciclos') {
+                            return(
+                                <>
+                                {Object.entries(elemento[1]).map((tempo)=>{
+                                    return(
+                                        <p>t{tempo[0]}: {tempo[1]}</p> 
+                                    )             
+                                })}
+                                </>
+                            )
+                        } else{
+                            return( 
+                                <p>{elemento[0]}:{elemento[1]}</p>
+                            )
+                    }})}
+                    </>
+                )
+            }
         })
 
         setPanel(info)
     }
+    
     return(
         <div className="main">
             <h1 className="title">Dashboard</h1>
